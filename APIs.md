@@ -16,3 +16,6 @@ Những APIs được sử dụng trong dự án
 
 6. lấy chuyên mục
    /test/categories
+
+7. Lọc sản phẩm dựa theo category id
+   /test/getAllByCatId

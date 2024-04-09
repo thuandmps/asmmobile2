@@ -23,6 +23,7 @@ import dki from '../dki';
 import dnhap from '../dnhap';
 import {authSelector} from '../redux/reducers/authReducer';
 import {useSelector} from 'react-redux';
+import CategoyDetail from '../screens/CategoyDetail';
 
 const Router = () => {
   const auth = useSelector(authSelector);
@@ -50,6 +51,7 @@ const HomeStack = () => {
       <Stack.Screen name="Chinhsua" component={Chinhsua} />
       <Stack.Screen name="Lichsu" component={Lichsu} />
       <Stack.Screen name="QA" component={QA} />
+      <Stack.Screen name="CategoyDetail" component={CategoyDetail} />
 
       {/* <Stack.Screen name='dki' component={dki} />
       <Stack.Screen name='dnhap' component={dnhap} /> */}

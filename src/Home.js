@@ -69,12 +69,34 @@ const Home = ({navigation}) => {
     );
   };
 
+  const renderCategoryItem = key => {
+    const cat = categories.find(element => `${element.id}` === `${key}`);
+
+    return (
+      cat && (
+        <TouchableOpacity
+          style={{
+            paddingHorizontal: 12,
+            backgroundColor: 'coral',
+            marginHorizontal: 6,
+            borderRadius: 10,
+          }}
+          key={`${cat._id}${Math.floor(Math.random() * 10000)}`}>
+          <Text style={{color: 'white'}}>{cat.name}</Text>
+        </TouchableOpacity>
+      )
+    );
+  };
+
   const renderItemImage = item => {
     return (
       <TouchableOpacity
         key={item._id}
-        //   onPress={() => navigation.navigate('Panse')}
-        onPress={() => console.log(item)}>
+        onPress={() =>
+          navigation.navigate('Panse', {
+            item,
+          })
+        }>
         {item.photoURL && (
           <Image
             source={{uri: item.photoURL}}
@@ -102,17 +124,15 @@ const Home = ({navigation}) => {
           numberOfLines={1}>
           {item.title}
         </Text>
-        <Text
+        <View
           style={[
             {
-              fontSize: 14,
-              color: 'black',
-              marginTop: 0,
+              flexDirection: 'row',
             },
           ]}>
           {item.categories.length > 0 &&
-            item.categories.map(item => <Text>{item}</Text>)}
-        </Text>
+            item.categories.map(item => renderCategoryItem(item))}
+        </View>
         <Text
           style={[
             {
@@ -372,6 +392,29 @@ const Home = ({navigation}) => {
       ) : (
         <Text>Data not found!!</Text>
       )}
+
+      <View style={styles.fragmentContainer} flexDirection="row">
+        <Image
+          source={require('../accets/images/menu1.png')}
+          style={styles.fragmentImage}
+        />
+        <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+          <Image
+            source={require('../accets/images/menu2.png')}
+            style={styles.fragmentImage}
+          />
+        </TouchableOpacity>
+        <Image
+          source={require('../accets/images/menu3.png')}
+          style={styles.fragmentImage}
+        />
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <Image
+            source={require('../accets/images/menu44.png')}
+            style={styles.fragmentImage}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
     // <View style={styles.container}>
 
@@ -413,28 +456,7 @@ const Home = ({navigation}) => {
     //     />
     //   </ScrollView>
 
-    //   <View style={styles.fragmentContainer} flexDirection="row">
-    //     <Image
-    //       source={require('../accets/images/menu1.png')}
-    //       style={styles.fragmentImage}
-    //     />
-    //     <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-    //       <Image
-    //         source={require('../accets/images/menu2.png')}
-    //         style={styles.fragmentImage}
-    //       />
-    //     </TouchableOpacity>
-    //     <Image
-    //       source={require('../accets/images/menu3.png')}
-    //       style={styles.fragmentImage}
-    //     />
-    //     <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-    //       <Image
-    //         source={require('../accets/images/menu44.png')}
-    //         style={styles.fragmentImage}
-    //       />
-    //     </TouchableOpacity>
-    //   </View> */}
+    //*/}
     // </View>
   );
 };

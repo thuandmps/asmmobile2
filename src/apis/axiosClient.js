@@ -2,8 +2,8 @@ import axios from 'axios';
 import queryString from 'query-string';
 
 const axiosClient = axios.create({
-  // baseURL: 'https://eventhub-sever.onrender.com',
-  baseURL: 'http://192.168.1.244:3001',
+  baseURL: 'https://eventhub-sever.onrender.com',
+  // baseURL: 'http://192.168.1.244:3001',
   paramsSerializer: params => queryString.stringify(params),
 });
 

@@ -12,11 +12,17 @@ import {
 import React, {useEffect, useState} from 'react';
 import {demodata} from './data/demodata';
 import PlantAPI from './apis/plantAPI copy';
+import {authSelector} from './redux/reducers/authReducer';
+import {useSelector} from 'react-redux';
+import {cartSelector} from './redux/reducers/cartReducer';
 
 const Home = ({navigation}) => {
   const [plants, setPlants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState([]);
+
+  const auth = useSelector(authSelector);
+  const cart = useSelector(cartSelector);
 
   useEffect(() => {
     getAllPlants();

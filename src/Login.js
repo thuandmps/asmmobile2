@@ -16,8 +16,8 @@ import {useDispatch} from 'react-redux';
 import {addAuth} from './redux/reducers/authReducer';
 
 const Login = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('vidu001@gmail.com');
+  const [password, setPassword] = useState('123456');
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
 

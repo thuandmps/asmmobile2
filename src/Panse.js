@@ -10,12 +10,93 @@ import {
 } from 'react-native';
 import React from 'react';
 import CategoryItem from './components/CategoryItem';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  addProduct,
+  cartSelector,
+  nimusProduct,
+} from './redux/reducers/cartReducer';
 
 const Panse = ({navigation, route}) => {
   const {item} = route.params;
+  const dispatch = useDispatch();
+  const cart = useSelector(cartSelector);
+
+  const renderByButton = () => {
+    const products = cart.products;
+
+    // console.log(products);
+    const product = products.find(element => element._id === item._id);
+
+    return product ? (
+      <>
+        <View
+          style={{flexDirection: 'row', alignItems: 'center', marginTop: 20}}>
+          <Text
+            style={{
+              color: 'black',
+              marginRight: 150,
+              marginLeft: 12,
+              fontSize: 15,
+            }}>
+            Đã chọn {product.quanlity} sản phẩm
+          </Text>
+          <Text style={{color: 'black', marginLeft: 10, fontSize: 15}}>
+            Tạm tính
+          </Text>
+        </View>
+
+        <View
+          style={{flexDirection: 'row', alignItems: 'center', marginTop: 0}}>
+          <TouchableOpacity onPress={() => dispatch(nimusProduct(product))}>
+            <Image
+              source={require('../accets/images/tru.png')}
+              style={{
+                width: 45,
+                height: 45,
+                marginRight: 0,
+                marginLeft: 10,
+                marginTop: 10,
+              }}
+            />
+          </TouchableOpacity>
+          <Text
+            style={{
+              color: 'black',
+              marginRight: 150,
+              marginLeft: 40,
+              fontSize: 26,
+            }}>
+            {product.quanlity}
+          </Text>
+          <TouchableOpacity onPress={() => dispatch(addProduct(product))}>
+            <Image
+              source={require('../accets/images/cong.png')}
+              style={{
+                width: 40,
+                height: 40,
+                marginRight: 0,
+                marginLeft: -110,
+                marginTop: 10,
+              }}
+            />
+          </TouchableOpacity>
+          <Text
+            style={{
+              color: 'black',
+              // marginRight: 150,
+              // marginLeft: 70,
+              fontSize: 26,
+            }}>
+            {(product.price * product.quanlity).toLocaleString()}
+          </Text>
+        </View>
+      </>
+    ) : null;
+  };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={{backgroundColor: 'white'}}>
         <View
           style={{flexDirection: 'row', alignItems: 'center', marginTop: 40}}>
@@ -171,65 +252,11 @@ const Panse = ({navigation, route}) => {
         </Text>
       </View>
 
-      <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 20}}>
-        <Text
-          style={{
-            color: 'black',
-            marginRight: 150,
-            marginLeft: 12,
-            fontSize: 15,
-          }}>
-          Đã chọn 1 sản phẩm
-        </Text>
-        <Text style={{color: 'black', marginLeft: 10, fontSize: 15}}>
-          Tạm tính
-        </Text>
-      </View>
-
-      <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 0}}>
-        <Image
-          source={require('../accets/images/tru.png')}
-          style={{
-            width: 45,
-            height: 45,
-            marginRight: 0,
-            marginLeft: 10,
-            marginTop: 10,
-          }}
-        />
-        <Text
-          style={{
-            color: 'black',
-            marginRight: 150,
-            marginLeft: 40,
-            fontSize: 26,
-          }}>
-          0
-        </Text>
-        <Image
-          source={require('../accets/images/cong.png')}
-          style={{
-            width: 40,
-            height: 40,
-            marginRight: 0,
-            marginLeft: -110,
-            marginTop: 10,
-          }}
-        />
-        <Text
-          style={{
-            color: 'black',
-            marginRight: 150,
-            marginLeft: 70,
-            fontSize: 26,
-          }}>
-          250.000đ
-        </Text>
-      </View>
+      {renderByButton()}
 
       <TouchableOpacity
         style={[styles.Button1]}
-        onPress={() => navigation.navigate('Homescreen')}>
+        onPress={() => dispatch(addProduct(item))}>
         <Text
           style={{
             alignSelf: 'center',
@@ -240,7 +267,7 @@ const Panse = ({navigation, route}) => {
           Chọn mua
         </Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 

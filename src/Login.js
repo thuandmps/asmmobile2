@@ -59,7 +59,11 @@ const Login = ({navigation}) => {
       if (res && res.data) {
         const accesstoken = res.data.accesstoken;
 
-        dispatch(addAuth(accesstoken));
+        dispatch(
+          addAuth({
+            accesstoken,
+          }),
+        );
       }
     } catch (error) {
       console.log(error);
